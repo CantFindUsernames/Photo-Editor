@@ -1,11 +1,14 @@
 from PIL import Image
 import sys, os
+from random import randint
 
 print("Welcome to Joseph's Photo Editor!")
 photo = input("Please enter the file path of the photo you would like to edit:")
 pic = Image.open(photo)
+og = Image.open(photo)
 while True:
     print("--Main Menu--")
+    print("To revert to the original photo at anytime input \'o\'")
     menu = input(
         "Please input the edit you would like to make. Convert file to jpg(j), crop(c), recolour(r), rotate(d), resize(s), pixels(p), or exposure(e).")
     if menu == "j":
@@ -58,6 +61,11 @@ while True:
                     if i + double > pic.size[0]:
                         continue
                     pixels[i + k, j] = (0, 0, 0)
+    elif menu == "o":
+        pic = og
     else:
         break
     pic.show()
+num = randint(0, 1000)
+print("Saved in Temp as edited_image", num, sep="")
+pic.save(r"C:\Temp\edited_image" + str(num) + ".jpg")
